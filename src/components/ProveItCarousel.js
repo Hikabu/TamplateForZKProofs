@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
+import ProofDemo from "./ProofDemo";
 
 const windows = [
   {
     id: 1,
-    content: "What do you want to prove today?",
+    content: "possibilities",
     extra: (
       <select className="p-2 text-black rounded text-left">
         <option>Prove your age</option>
@@ -15,23 +16,8 @@ const windows = [
   },
   {
     id: 2,
-    content: "Upload your proof",
-    extra: (
-      <div className="text-white mt-4 space-y-2">
-        <p>Enter what you are proving:</p>
-        <select className="p-2 rounded text-black w-full">
-          <option>Prove your age</option>
-          <option>Prove your work</option>
-          <option>Prove that you are a parent</option>
-        </select>
-        <p>Write the corresponding info:</p>
-        <input
-          type="text"
-          placeholder="Your info here"
-          className="p-2 rounded w-full text-black"
-        />
-      </div>
-    ),
+    content: "Circuit Inputs",
+    extra: <ProofDemo />,
   },
   {
     id: 3,
@@ -58,8 +44,8 @@ export default function ProveItCarousel() {
         const pos = (i - index + windows.length) % windows.length;
 
         let x = 0;
-        if (pos === 1) x = 400; // right
-        if (pos === windows.length - 1) x = -400; // left
+        if (pos === 1) x = 400;
+        if (pos === windows.length - 1) x = -400;
 
         const isCenter = pos === 0;
 
@@ -79,7 +65,6 @@ export default function ProveItCarousel() {
           >
             <h1 className="text-2xl font-bold text-white mb-6">{win.content}</h1>
 
-            {/* Animate the container height for smooth open/close */}
             <motion.div
               animate={{
                 height: isCenter ? "auto" : 0,
