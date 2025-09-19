@@ -59,7 +59,7 @@ export default function useProofDemo() {
     setIsVerifying(true);
     try {
       const { backend } = await initializeCircuit();
-      const isValid = await backend.verifyProof(proof);
+      const isValid = await backend.verifyProof(proof.proof);
       setVerificationResult(isValid);
       setStep(2);
     } catch (error) {
