@@ -26,6 +26,7 @@ export function initJellyfish(canvas) {
   // --- Pulsing glowing body ---
   const pulse = Math.sin((t / 30) + j.phase) * 4;
   const radius = j.baseRadius + pulse;
+  const baseRadius = j.baseRadius;
 
   const gradient = ctx.createRadialGradient(
     j.x, j.y, radius * 0.1,
@@ -35,10 +36,35 @@ export function initJellyfish(canvas) {
   gradient.addColorStop(0.4, "rgba(120,0,255,0.5)");
   gradient.addColorStop(1, "rgba(255,0,180,0.05)");
 
+
   ctx.fillStyle = gradient;
   ctx.beginPath();
-  ctx.arc(j.x, j.y, radius, 0, Math.PI * 2);
-  ctx.fill();
+  // --- Draw jellyfish head as hourglass / lobed shape ---
+const points = 36;
+for (let i = 0; i <= points; i++) {
+  const angle = (i / points) * Math.PI * 2;
+
+  // --- Create hourglass / sand-timer shape ---
+  // Cosine to squeeze the middle vertically
+  const verticalSqueeze = Math.cos(angle * 2) * 0.5 + 0.5; // 0→1→0
+  let r = baseRadius * (0.7 + verticalSqueeze * 0.6);
+
+  // --- Pulse + wobble ---
+  r += Math.sin(angle * 5 + t / 20 + j.phase) * 4;
+
+  // --- Random asymmetric lobes ---
+  const lobe = Math.sin(angle * 3 + t / 20 + j.phase) * 4;
+  r += lobe;
+
+  const x = j.x + r * Math.cos(angle);
+  const y = j.y + r * Math.sin(angle);
+
+  if (i === 0) ctx.moveTo(x, y);
+  else ctx.lineTo(x, y);
+}
+ctx.closePath();
+ctx.fill();
+
 
   // --- Tentacles ---
   const numTentacles = 14;
@@ -79,9 +105,6 @@ export function initJellyfish(canvas) {
     ctx.stroke();
   }
 };
-
-
-
 
   const updateJellyfish = () => {
     jellyfish.forEach((j) => {
