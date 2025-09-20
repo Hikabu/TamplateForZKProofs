@@ -58,9 +58,9 @@ export default function ProveItCarousel() {
               opacity: isCenter ? 1 : 0.5,
             }}
             transition={{ duration: 0.8, ease: "easeInOut" }}
-            className={`absolute bg-white/10 backdrop-blur-md rounded-2xl shadow-lg p-10 text-center ${
-              isCenter ? "w-5/7 z-20" : "w-4/7 z-10"
-            }`}
+            className={`absolute bg-white/10 backdrop-blur-md rounded-2xl shadow-lg p-10 w-[600px] text-center
+            ${
+              isCenter ? "z-20" : "z-10 "}`}
             style={{ maxWidth: "600px" }}
           >
             <h1 className="text-2xl font-bold text-white mb-6">{win.content}</h1>
