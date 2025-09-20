@@ -31,7 +31,7 @@ export default function App() {
         className="absolute inset-0"
         style={{
           background:
-            "linear-gradient(to bottom, #0f0c29, #302b63, #24243e)",
+            "linear-gradient(to bottom, #000000ff, #0f0d22ff, #1d1d3dff)",
         }}
       />
       <div className="absolute inset-0 flex items-center justify-center">

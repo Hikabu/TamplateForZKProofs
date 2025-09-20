@@ -39,6 +39,7 @@ export function initJellyfish(canvas) {
 
   ctx.fillStyle = gradient;
   ctx.beginPath();
+  
   // --- Draw jellyfish head as hourglass / lobed shape ---
 const points = 36;
 for (let i = 0; i <= points; i++) {
@@ -63,6 +64,7 @@ for (let i = 0; i <= points; i++) {
   else ctx.lineTo(x, y);
 }
 ctx.closePath();
+ctx.globalAlpha = j.opacity;
 ctx.fill();
 
 
@@ -112,9 +114,17 @@ ctx.fill();
       j.angle += 0.01;
       j.x += Math.sin(j.angle) * 0.3;
 
+      const fadeStart = 30;
+      if (j.y < fadeStart){
+        j.opacity = Math.max(0, j.y / fadeStart);
+      } else {
+        j.opacity = 1;
+      }
+
       if (j.y + j.baseRadius < 0) {
         j.y = canvas.height + j.baseRadius;
         j.x = Math.random() * canvas.width;
+        j.opacity = 1;
       }
     });
   };
